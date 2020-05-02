@@ -7,10 +7,23 @@
         mc:Ignorable="d"
         Title="MainWindow" MinHeight="300" Width="800">
     <DockPanel>
-    <Grid>
+
+       
+            <ListView ItemsSource="{Binding Contacts}"
+                      SelectedItem="{Binding SelectedContact}" Width="150" Height="Auto" VerticalAlignment="Top">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding FullName}"/>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+
+            </ListView>
+       
+
+      <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -21,7 +34,8 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal">
             <TextBlock Text="Recherche : "/>
@@ -32,9 +46,10 @@
         <TextBlock Grid.Row="3" Grid.Column="0" Text="Email : "/>
         <TextBlock Grid.Row="4" Grid.Column="0" Text="Téléphone : "/>
         <TextBlock Grid.Row="5" Grid.Column="0" Text="Celluaire : "/>
-        <TextBlock Grid.Row="7" Grid.Column="0" Text="Identifiant : "/>
+        <TextBlock Grid.Row="6" Grid.Column="0" Text="Identifiant : "/>
+        <TextBlock Grid.Row="7" Grid.Column="0" Text="FullName : "/>
 
-        <Button  Grid.Row="0" Grid.Column="1" Content="Recherche" 
+            <Button  Grid.Row="0" Grid.Column="1" Content="Recherche" 
                     Command="{Binding SearchContactCommand}" 
                     CommandParameter="{Binding ElementName=txtCriteria,Path=Text}" />
         <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding SelectedContact.FirstName}"/>
@@ -42,7 +57,9 @@
         <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding SelectedContact.Email}"/>
         <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding SelectedContact.Phone}"/>
         <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding SelectedContact.Mobile}"/>
-        <TextBox Grid.Row="7" Grid.Column="1" Text="{Binding SelectedContact.ContactID}"/>
+        <TextBlock Grid.Row="6" Grid.Column="1" Text="{Binding SelectedContact.ContactID}"/>
+        <TextBox Grid.Row="7" Grid.Column="1" Text="{Binding SelectedContact.FullName}"/>
+        
         </Grid>
     </DockPanel>
 </Window>

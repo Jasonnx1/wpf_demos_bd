@@ -46,8 +46,8 @@ namespace wpf_demo_phonebook
         public DataTable ExecuteSelectQuery(string _query, SqlParameter[] parameters)
         {
             SqlCommand command = new SqlCommand();
-            DataTable dataTable = null;
-            DataSet ds = new DataSet();
+           // DataTable dataTable = null;
+            DataTable ds = new DataTable();
 
             try
             {
@@ -57,7 +57,7 @@ namespace wpf_demo_phonebook
                 command.ExecuteNonQuery();
                 DataAdapter.SelectCommand = command;
                 DataAdapter.Fill(ds);
-                dataTable = ds.Tables[0];
+               // dataTable = ds.Tables[0];
 
             } catch (Exception ex)
             {
@@ -68,7 +68,7 @@ namespace wpf_demo_phonebook
                 Connection.Close();
             }
 
-            return dataTable;
+            return ds;
         }
 
         public int ExecutInsertQuery(string _query, SqlParameter[] parameters)

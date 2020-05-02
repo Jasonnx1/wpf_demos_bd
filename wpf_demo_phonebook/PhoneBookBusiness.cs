@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace wpf_demo_phonebook
@@ -19,14 +20,22 @@ namespace wpf_demo_phonebook
 
             if (dt != null)
             {
-                foreach (DataRow row in dt.Rows)
-                {
-                    cm = RowToContactModel(row);
-                }
-            }
+                
+
+                    foreach (DataRow row in dt.Rows)
+                    {
+                        cm = RowToContactModel(row);
+                    }
+
+               
+
+
+            } 
 
             return cm;
         }
+
+
 
         public static ContactModel GetContactByID(int _id)
         {
@@ -38,13 +47,46 @@ namespace wpf_demo_phonebook
 
             if (dt != null)
             {
-                foreach (DataRow row in dt.Rows)
-                {
-                    cm = RowToContactModel(row);
-                }
+               
+
+                    foreach (DataRow row in dt.Rows)
+                    {
+                        cm = RowToContactModel(row);
+                    }
+
+                
+
             }
 
+
+
             return cm;
+        }
+
+        public static List<ContactModel> GetContacts()
+        {
+            DataTable dt;
+
+            dt = dao.GetAll();
+            
+            List<ContactModel> cml = new List<ContactModel>();
+            int i = 0;
+
+            if (dt != null)
+            {
+               
+                    
+                    foreach (DataRow row in dt.Rows)
+                    {
+                        cml.Add(null);
+                        cml[i] = RowToContactModel(row);
+                        i++;
+                    }
+
+                
+            }
+
+            return cml;
         }
 
         private static ContactModel RowToContactModel(DataRow row)

@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Data;
 using System.Windows;
+using System.Windows.Documents;
 using wpf_demo_phonebook.ViewModels.Commands;
 
 namespace wpf_demo_phonebook.ViewModels
@@ -7,6 +10,19 @@ namespace wpf_demo_phonebook.ViewModels
     class MainViewModel : BaseViewModel
     {
         private ContactModel selectedContact;
+        private List<ContactModel> contacts;
+
+        public DataSet ds { get; set; }
+
+
+        public List<ContactModel> Contacts
+        {
+            get => contacts;
+            set {
+                contacts = value;
+                OnPropertyChanged();
+            }
+        }
 
         public ContactModel SelectedContact
         {
@@ -34,6 +50,8 @@ namespace wpf_demo_phonebook.ViewModels
         {
             SearchContactCommand = new RelayCommand(SearchContact);
             SelectedContact = PhoneBookBusiness.GetContactByID(1);
+            Contacts = PhoneBookBusiness.GetContacts();
+          
         }
 
         private void SearchContact(object parameter)
@@ -54,6 +72,7 @@ namespace wpf_demo_phonebook.ViewModels
                 case "id":
                     SelectedContact = PhoneBookBusiness.GetContactByID(output);
                     break;
+
                 case "name":
                     SelectedContact = PhoneBookBusiness.GetContactByName(input);
                     break;

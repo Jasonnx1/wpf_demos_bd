@@ -20,6 +20,18 @@ namespace wpf_demo_phonebook
         /// </summary>
         /// <param name="_name">Nom de famille ou prénom</param>
         /// <returns>Une DataTable</returns>
+        /// 
+
+        public DataTable GetAll()
+        {
+            string _query =
+                $"SELECT * " +
+                $"FROM [Contacts] ";
+
+            SqlParameter[] parameters = new SqlParameter[0];
+            return conn.ExecuteSelectQuery(_query, parameters);
+        }
+
         public DataTable SearchByName(string _name)
         {
             string _query =
