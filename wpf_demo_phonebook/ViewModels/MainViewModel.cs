@@ -71,10 +71,12 @@ namespace wpf_demo_phonebook.ViewModels
             {
                 case "id":
                     SelectedContact = PhoneBookBusiness.GetContactByID(output);
+                    Contacts = PhoneBookBusiness.GetContactsById(output);
                     break;
 
                 case "name":
                     SelectedContact = PhoneBookBusiness.GetContactByName(input);
+                    Contacts = PhoneBookBusiness.GetContactsByName(input);
                     break;
                 default:
                     MessageBox.Show("Unkonwn search method");

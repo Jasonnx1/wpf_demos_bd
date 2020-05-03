@@ -47,43 +47,85 @@ namespace wpf_demo_phonebook
 
             if (dt != null)
             {
-               
-
-                    foreach (DataRow row in dt.Rows)
-                    {
-                        cm = RowToContactModel(row);
-                    }
-
-                
-
+                foreach (DataRow row in dt.Rows)
+                {
+                    cm = RowToContactModel(row);
+                }
             }
-
-
-
             return cm;
         }
+
 
         public static List<ContactModel> GetContacts()
         {
             DataTable dt;
 
             dt = dao.GetAll();
-            
+
             List<ContactModel> cml = new List<ContactModel>();
             int i = 0;
 
             if (dt != null)
             {
-               
-                    
-                    foreach (DataRow row in dt.Rows)
-                    {
-                        cml.Add(null);
-                        cml[i] = RowToContactModel(row);
-                        i++;
-                    }
 
-                
+                foreach (DataRow row in dt.Rows)
+                {
+                    cml.Add(null);
+                    cml[i] = RowToContactModel(row);
+                    i++;
+                }
+
+
+            }
+
+            return cml;
+        }
+
+        public static List<ContactModel> GetContactsById(int _id)
+        {
+            DataTable dt;
+
+            dt = dao.SearchByID(_id);
+
+            List<ContactModel> cml = new List<ContactModel>();
+            int i = 0;
+
+            if (dt != null)
+            {
+
+                foreach (DataRow row in dt.Rows)
+                {
+                    cml.Add(null);
+                    cml[i] = RowToContactModel(row);
+                    i++;
+                }
+
+
+            }
+
+            return cml;
+        }
+
+        public static List<ContactModel> GetContactsByName(String _name)
+        {
+            DataTable dt;
+
+            dt = dao.SearchByName(_name);
+
+            List<ContactModel> cml = new List<ContactModel>();
+            int i = 0;
+
+            if (dt != null)
+            {
+
+                foreach (DataRow row in dt.Rows)
+                {
+                    cml.Add(null);
+                    cml[i] = RowToContactModel(row);
+                    i++;
+                }
+
+
             }
 
             return cml;
