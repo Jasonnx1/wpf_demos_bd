@@ -78,11 +78,25 @@ namespace wpf_demo_phonebook
             {
 
                 string _query =
-                $"UPDATE " +
-                $"INTO [Contacts] (FirstName, LastName, Email, Phone, Mobile)" +
-                $"VALUES (@firstname, @lastname, @email, @phone, @mobile)";
+                $"UPDATE [Contacts] " +
+                $"SET FirstName = @firstName, LastName = @lastName, Email = @email, Phone = @phone, Mobile = @mobile) " +
+                $"WHERE ContactID = @_id ";
 
-                SqlParameter[] parameters = new SqlParameter[5];
+                SqlParameter[] parameters = new SqlParameter[6];
+
+                parameters[0] = new SqlParameter("@firstName", SqlDbType.NVarChar);
+                parameters[1] = new SqlParameter("@lastName", SqlDbType.NVarChar);
+                parameters[2] = new SqlParameter("@email", SqlDbType.NVarChar);
+                parameters[3] = new SqlParameter("@phone", SqlDbType.NVarChar);
+                parameters[4] = new SqlParameter("@mobile", SqlDbType.NVarChar);
+                parameters[5] = new SqlParameter("@_id", SqlDbType.Int);
+
+                parameters[0].Value = cm.FirstName;
+                parameters[1].Value = cm.LastName;
+                parameters[2].Value = cm.Email;
+                parameters[3].Value = cm.Phone;
+                parameters[4].Value = cm.Mobile;
+                parameters[5].Value = cm.ContactID;
 
                 return conn.ExecutInsertQuery(_query, parameters);
             }
