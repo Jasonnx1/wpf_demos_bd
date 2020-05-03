@@ -8,8 +8,15 @@
         Title="MainWindow" MinHeight="300" Width="800">
     <DockPanel>
 
-       
-            <ListView ItemsSource="{Binding Contacts}"
+
+        <StatusBar DockPanel.Dock="Top" Width="auto" Height="25">
+            <TextBlock Text="Recherche : "/>
+            <TextBox x:Name="txtCriteria" HorizontalAlignment="Right" Width="150"/>
+            <Button  Grid.Row="0" Grid.Column="1" Content="Recherche" 
+                    Command="{Binding SearchContactCommand}" 
+                    CommandParameter="{Binding ElementName=txtCriteria,Path=Text}" />
+        </StatusBar>
+        <ListView ItemsSource="{Binding Contacts}"
                       SelectedItem="{Binding SelectedContact}" Width="150" Height="Auto" VerticalAlignment="Top">
                 <ListView.ItemTemplate>
                     <DataTemplate>
@@ -38,8 +45,7 @@
             </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal">
-            <TextBlock Text="Recherche : "/>
-            <TextBox x:Name="txtCriteria" HorizontalAlignment="Right" Width="150"/>
+
         </StackPanel>
         <TextBlock Grid.Row="1" Grid.Column="0" Text="Prénom : "/>
         <TextBlock Grid.Row="2" Grid.Column="0" Text="Nom de famille : "/>
@@ -49,9 +55,7 @@
         <TextBlock Grid.Row="6" Grid.Column="0" Text="Identifiant : "/>
         <TextBlock Grid.Row="7" Grid.Column="0" Text="FullName : "/>
 
-            <Button  Grid.Row="0" Grid.Column="1" Content="Recherche" 
-                    Command="{Binding SearchContactCommand}" 
-                    CommandParameter="{Binding ElementName=txtCriteria,Path=Text}" />
+           
         <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding SelectedContact.FirstName}"/>
         <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding SelectedContact.LastName}"/>
         <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding SelectedContact.Email}"/>
