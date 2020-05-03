@@ -70,13 +70,13 @@ namespace wpf_demo_phonebook.ViewModels
             switch (searchMethod)
             {
                 case "id":
-                    SelectedContact = PhoneBookBusiness.GetContactByID(output);
                     Contacts = PhoneBookBusiness.GetContactsById(output);
+                    SelectedContact = Contacts[0];
                     break;
 
                 case "name":
-                    SelectedContact = PhoneBookBusiness.GetContactByName(input);
                     Contacts = PhoneBookBusiness.GetContactsByName(input);
+                    SelectedContact = Contacts[0];
                     break;
                 default:
                     MessageBox.Show("Unkonwn search method");
