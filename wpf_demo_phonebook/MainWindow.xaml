@@ -8,8 +8,15 @@
         Title="MainWindow" MinHeight="300" Width="800">
     <DockPanel>
 
-
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="Fichier"/>
+            <MenuItem Header="Édition"/>
+            <MenuItem Header="Enregistrement"/>
+        </Menu>
         <StatusBar DockPanel.Dock="Top" Width="auto" Height="25">
+
+            <Button Content="+Contact" Command="{Binding CreateContactCommand}"/>
+
             <TextBlock Text="Recherche : "/>
             <TextBox x:Name="txtCriteria" HorizontalAlignment="Right" Width="150"/>
             <Button  Grid.Row="0" Grid.Column="1" Content="Recherche" 
@@ -54,8 +61,9 @@
         <TextBlock Grid.Row="5" Grid.Column="0" Text="Celluaire : "/>
         <TextBlock Grid.Row="6" Grid.Column="0" Text="Identifiant : "/>
         <TextBlock Grid.Row="7" Grid.Column="0" Text="FullName : "/>
+        
 
-           
+
         <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding SelectedContact.FirstName}"/>
         <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding SelectedContact.LastName}"/>
         <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding SelectedContact.Email}"/>
@@ -63,7 +71,11 @@
         <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding SelectedContact.Mobile}"/>
         <TextBlock Grid.Row="6" Grid.Column="1" Text="{Binding SelectedContact.ContactID}"/>
         <TextBox Grid.Row="7" Grid.Column="1" Text="{Binding SelectedContact.FullName}"/>
-        
+            <StackPanel Grid.Row="8" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Content="Enregistrer"/>
+                <Button Content="Supprimer" Command="{Binding DeleteContactCommand}" Margin="20,0,90,0"/>
+        </StackPanel>
+
         </Grid>
     </DockPanel>
 </Window>

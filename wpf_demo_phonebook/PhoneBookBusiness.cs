@@ -81,6 +81,11 @@ namespace wpf_demo_phonebook
             return cml;
         }
 
+
+        public static int UpdateContactModel(ContactModel cm)
+        {
+            return dao.UpdateContact(cm);
+        }
         public static List<ContactModel> GetContactsById(int _id)
         {
             DataTable dt;
@@ -104,6 +109,13 @@ namespace wpf_demo_phonebook
             }
 
             return cml;
+        }
+
+        public static void DeleteContact(int _id)
+        {
+
+            
+
         }
 
         public static List<ContactModel> GetContactsByName(String _name)
