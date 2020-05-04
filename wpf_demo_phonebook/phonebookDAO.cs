@@ -48,64 +48,63 @@ namespace wpf_demo_phonebook
 
         }
 
-        public int UpdateContact(ContactModel cm)
+        public void UpdateContact(int _id, string firstName, string lastName, string email, string phone, string mobile)
         {
+            string _query =
+            $"UPDATE [Contacts] " +
+            $"SET FirstName = @firstName, LastName = @lastName, Email = @email, Phone = @phone, Mobile = @mobile " +
+            $"WHERE ContactID = @_id ";
 
-            if(cm.ContactID == 0)
-            {
-                string _query =
-                $"INSERT " +
-                $"INTO [Contacts] (FirstName, LastName, Email, Phone, Mobile)" +
-                $"VALUES (@firstName, @lastName, @email, @phone, @mobile)";
+            SqlParameter[] parameters = new SqlParameter[6];
 
-                SqlParameter[] parameters = new SqlParameter[5];
+            parameters[0] = new SqlParameter("@firstName", SqlDbType.NVarChar);
+            parameters[0].Value = firstName;
 
-                parameters[0] = new SqlParameter("@firstName", SqlDbType.NVarChar);
-                parameters[1] = new SqlParameter("@lastName", SqlDbType.NVarChar);
-                parameters[2] = new SqlParameter("@email", SqlDbType.NVarChar);
-                parameters[3] = new SqlParameter("@phone", SqlDbType.NVarChar);
-                parameters[4] = new SqlParameter("@mobile", SqlDbType.NVarChar);
+            parameters[1] = new SqlParameter("@lastName", SqlDbType.NVarChar);
+            parameters[1].Value = lastName;
 
-                parameters[0].Value = cm.FirstName;
-                parameters[1].Value = cm.LastName;
-                parameters[2].Value = cm.Email;
-                parameters[3].Value = cm.Phone;
-                parameters[4].Value = cm.Mobile;
+            parameters[2] = new SqlParameter("@email", SqlDbType.NVarChar);
+            parameters[2].Value = email;
 
-                return conn.ExecutInsertQuery(_query, parameters);
-            }
-            else
-            {
+            parameters[3] = new SqlParameter("@phone", SqlDbType.NVarChar);
+            parameters[3].Value = phone;
 
-                string _query =
-                $"UPDATE [Contacts] " +
-                $"SET FirstName = @firstName, LastName = @lastName, Email = @email, Phone = @phone, Mobile = @mobile) " +
-                $"WHERE ContactID = @_id ";
+            parameters[4] = new SqlParameter("@mobile", SqlDbType.NVarChar);
+            parameters[4].Value = mobile;
 
-                SqlParameter[] parameters = new SqlParameter[6];
+            parameters[5] = new SqlParameter("@_id", SqlDbType.Int);
+            parameters[5].Value = _id;
 
-                parameters[0] = new SqlParameter("@firstName", SqlDbType.NVarChar);
-                parameters[1] = new SqlParameter("@lastName", SqlDbType.NVarChar);
-                parameters[2] = new SqlParameter("@email", SqlDbType.NVarChar);
-                parameters[3] = new SqlParameter("@phone", SqlDbType.NVarChar);
-                parameters[4] = new SqlParameter("@mobile", SqlDbType.NVarChar);
-                parameters[5] = new SqlParameter("@_id", SqlDbType.Int);
-
-                parameters[0].Value = cm.FirstName;
-                parameters[1].Value = cm.LastName;
-                parameters[2].Value = cm.Email;
-                parameters[3].Value = cm.Phone;
-                parameters[4].Value = cm.Mobile;
-                parameters[5].Value = cm.ContactID;
-
-                return conn.ExecutInsertQuery(_query, parameters);
-            }
-            
-
-
-            
-
+            conn.ExecutUpdateQuery(_query, parameters);
         }
+
+        public void CreateContact(string firstName, string lastName, string email, string phone, string mobile)
+        {
+            string _query =
+            $"INSERT INTO " +
+            $"[Contacts] (FirstName, LastName, Email, Phone, Mobile) " +
+            $"VALUES (@firstName, @lastName, @email, @phone, @mobile)";
+
+            SqlParameter[] parameters = new SqlParameter[5];
+
+            parameters[0] = new SqlParameter("@firstName", SqlDbType.NVarChar);
+            parameters[0].Value = firstName;
+
+            parameters[1] = new SqlParameter("@lastName", SqlDbType.NVarChar);
+            parameters[1].Value = lastName;
+
+            parameters[2] = new SqlParameter("@email", SqlDbType.NVarChar);
+            parameters[2].Value = email;
+
+            parameters[3] = new SqlParameter("@phone", SqlDbType.NVarChar);
+            parameters[3].Value = phone;
+
+            parameters[4] = new SqlParameter("@mobile", SqlDbType.NVarChar);
+            parameters[4].Value = mobile;
+
+            conn.ExecutInsertQuery(_query, parameters);
+        }
+
         public DataTable SearchByName(string _name)
         {
             string _query =

@@ -82,9 +82,15 @@ namespace wpf_demo_phonebook
         }
 
 
-        public static int UpdateContactModel(ContactModel cm)
+
+        public static void UpdateContactModel(ContactModel cm)
         {
-            return dao.UpdateContact(cm);
+            dao.UpdateContact(cm.ContactID, cm.FirstName, cm.LastName, cm.Email, cm.Phone, cm.Mobile);
+        }
+
+        public static void CreateContactModel(ContactModel cm)
+        {
+            dao.CreateContact(cm.FirstName, cm.LastName, cm.Email, cm.Phone, cm.Mobile);
         }
         public static List<ContactModel> GetContactsById(int _id)
         {
@@ -113,10 +119,9 @@ namespace wpf_demo_phonebook
 
         public static void DeleteContact(int _id)
         {
+            dao.DeleteContact(_id);
+        }            
 
-            
-
-        }
 
         public static List<ContactModel> GetContactsByName(String _name)
         {

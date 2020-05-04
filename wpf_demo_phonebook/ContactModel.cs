@@ -13,6 +13,8 @@ namespace wpf_demo_phonebook
         public string Phone { get; set; }
         public string Mobile { get; set; }
 
+        
+
         public string FullName {
             get => LastName + ", " + FirstName;
             set { FullName = value; }

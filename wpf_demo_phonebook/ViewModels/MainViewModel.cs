@@ -12,7 +12,7 @@ namespace wpf_demo_phonebook.ViewModels
     {
         private ContactModel selectedContact;
         private List<ContactModel> contacts;
-
+        private bool NewUser { get; set; }
         public DataSet ds { get; set; }
 
 
@@ -30,6 +30,7 @@ namespace wpf_demo_phonebook.ViewModels
             get => selectedContact;
             set { 
                 selectedContact = value;
+                NewUser = false;
                 OnPropertyChanged();
             }
         }
@@ -56,6 +57,8 @@ namespace wpf_demo_phonebook.ViewModels
             DeleteContactCommand = new RelayCommand(DeleteContact);
             CreateContactCommand = new RelayCommand(CreateContact);
             UpdateContactCommand = new RelayCommand(UpdateContact);
+            NewUser = false;
+            
 
             SelectedContact = PhoneBookBusiness.GetContactByID(1);
             Contacts = PhoneBookBusiness.GetContacts();
@@ -65,21 +68,52 @@ namespace wpf_demo_phonebook.ViewModels
         private void CreateContact(object parameter)
         {
             SelectedContact = new ContactModel();
-            SelectedContact.ContactID = 0;
+            NewUser = true;
         }
 
         private void UpdateContact(object parameter)
         {
-            PhoneBookBusiness.UpdateContactModel(SelectedContact);   
+            if(SelectedContact != null)
+            {
+                if (NewUser)
+                {
+                    PhoneBookBusiness.CreateContactModel(SelectedContact);
+                    NewUser = false;
+                    Contacts = PhoneBookBusiness.GetContacts();
+                    SelectedContact = PhoneBookBusiness.GetContactByName(SelectedContact.FirstName);
+
+                }
+                else
+                {
+                    PhoneBookBusiness.UpdateContactModel(SelectedContact);
+                }
+
+            }
+
+            
         }
             
 
 
         private void DeleteContact(object parameter)
         {
+            if(SelectedContact != null)
+            {
 
-            PhoneBookBusiness.DeleteContact(SelectedContact.ContactID);
-              
+                MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show("Are you sure?", "Delete Confirmation", System.Windows.MessageBoxButton.YesNo);
+
+                if(messageBoxResult == MessageBoxResult.Yes)
+                {
+
+                    PhoneBookBusiness.DeleteContact(SelectedContact.ContactID);
+                    SelectedContact = null;
+                    Contacts = PhoneBookBusiness.GetContacts();
+
+                }
+                
+
+            }
+
         }
 
         private void SearchContact(object parameter)
